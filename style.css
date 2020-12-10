@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    margin-bottom: 2vh;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.display-area {
+    width: 90vw;
+    height: 20vh;
+    background-color: blanchedalmond;
+    margin-bottom: 2vh;
+}
+
+.buttons-area {
+    width: 90vw;
+    height: 60vh;
+    background-color: cornsilk;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.buttons-area__btn {
+    width: 17%;
+    height: 15%;
+    background-color: darkgrey;
+    margin: 1px;
+}
