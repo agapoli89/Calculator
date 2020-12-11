@@ -43,24 +43,45 @@ h1 {
 .buttons-area {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(5, 16%);
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 5%;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, .5fr);
     background-color: darkgrey;
     border-radius: 5px;
+    gap: 15px;
     padding: 15px;
+    padding-bottom: 0;
 }
 
 .buttons-area__btn {
     background-color: lightslategray;
     cursor: pointer;
     width: 100%;
+    height: 100%;
+    border-radius: 5px;
 }
 
-/* .equal {
+.buttons-area__btn::after {
+    display: block;
+    content: '';
+    padding-bottom: 100%;
+}
+
+.buttons-area__btn--equal {
+    grid-row-start: 5;
+    grid-row-end: span 2;
     grid-column: 5;
-    grid-row: 5 / 6;
-}  */
+    height: calc(50% + 30px);
+} 
+
+.buttons-area__btn--zero {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+    height: 50%;
+}
+
+.buttons-area__btn--end {
+    height: 50%;
+}
 
 @media (min-width: 500px) {
     .container {
@@ -74,7 +95,7 @@ h1 {
     }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 800px) {
     .container {
         width: 70%;
     }
@@ -82,6 +103,6 @@ h1 {
 
 @media (min-width: 900px) {
     .container {
-        width: 40%;
+        width: 30%;
     }
 }
