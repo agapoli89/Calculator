@@ -6,18 +6,21 @@
 
 body {
     width: 100vw;
+    height: 100vh;
     background-color: lightgrey;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-    margin-left: auto;
-    margin-right: auto;
     width: 90vw;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 header {
@@ -33,7 +36,7 @@ h1 {
 }
 
 .display-area {
-    height: 20vw;
+    height: 10vh;
     width: 100%;
     background-color: gray;
     margin-bottom: 2vh;
@@ -44,19 +47,16 @@ h1 {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(6, .5fr);
+    grid-template-rows: repeat(6, 1fr);
     background-color: darkgrey;
     border-radius: 5px;
-    gap: 15px;
-    padding: 15px;
-    padding-bottom: 0;
+    box-sizing: border-box;
+    padding: 10px;
 }
 
 .buttons-area__btn {
     background-color: lightslategray;
     cursor: pointer;
-    width: 100%;
-    height: 100%;
     border-radius: 5px;
     color: lightgray;
     display: flex;
@@ -64,27 +64,18 @@ h1 {
     align-items: center;
     font-weight: bold;
     font-size: 18px;
-}
-
-.buttons-area__btn::after {
-    display: block;
-    content: '';
-    padding-bottom: 100%;
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .buttons-area__btn--equal {
     grid-row: 5 / span 2;
     grid-column: 5;
-    height: calc(75% - 15px);
 } 
 
 .buttons-area__btn--zero {
     grid-column: 1 / span 2;
-    height: 50%;
-}
-
-.buttons-area__btn--end {
-    height: 50%;
 }
 
 @media (min-width: 500px) {
