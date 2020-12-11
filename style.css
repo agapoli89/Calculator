@@ -1,7 +1,8 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    user-select: none;
 }
 
 body {
@@ -41,6 +42,12 @@ h1 {
     background-color: gray;
     margin-bottom: 2vh;
     border-radius: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 20px;
+    color: lightgray;
+    font-size: 30px;
 }
 
 .buttons-area {
@@ -67,6 +74,14 @@ h1 {
     margin: 5px;
     padding: 5px;
     box-sizing: border-box;
+}
+
+.buttons-area__btn:hover {
+    background-color: rgb(110, 137, 163);
+}
+
+.buttons-area__btn:active {
+    background-color: rgb(110, 137, 163);
 }
 
 .buttons-area__btn--equal {
