@@ -48,12 +48,76 @@ class Calculator {
         const numbers = document.querySelectorAll(NUMBER_CLASS_SELECTOR);
         
         if(numbers.length !== NUMBER_OF_NUMBERS_ON_KEYBOARD) {
-            console.log('M');
-            
+            console.warn("There are not enough numbers in keyboards");
         }
+
+        numbers.forEach(number => number.addEventListener("click", event => this.concatenateNumber(event)));
     }
     bindToButtons() {
-        console.log('Bind to buttons');
+        this.bindFunctionToButton(MEMORY_CLEAR_ID, () => this.memoryClear());
+        this.bindFunctionToButton(MEMORY_READ_ID, () => this.memoryRead());
+        this.bindFunctionToButton(MEMORY_ADD_ID, () => this.memoryAdd());
+        this.bindFunctionToButton(MEMORY_MINUS_ID, () => this.memoryMinus());
+        this.bindFunctionToButton(MEMORY_SET_ID, () => this.memorySet());
+        this.bindFunctionToButton(CLEAR_ID, () => this.clear());
+    }
+
+    bindFunctionToButton(id, callback) {
+        const element = document.getElementById(id);
+
+        if (!element) {
+            console.warn(`The element ${id} is not found`);
+            return;
+        } 
+
+        element.addEventListener('click', () => callback());
+    }
+
+    concatenateNumber(event) {
+        this.displayValue = this.displayValue === null || this.displayValue === '0' || this.wasSpecialFunctionClicked
+        ? event.target.textContent
+        : this.displayValue + event.target.textContent;
+
+        if (this.wasEqualClicked) {
+            this.previousValue = 0;
+            this.repeatedValue = 0;
+            this.wasEqualClicked = false;
+        }
+
+        this.wasSpecialFunctionClicked = false;
+        this.isFunctionDone = false;
+        this.display.textContent = this.displayValue;
+    }
+
+    memoryClear() {
+        this.wasSpecialFunctionClicked = true;
+        this.memoryValue = 0;
+    }
+
+    memoryRead() {
+        this.wasSpecialFunctionClicked = true;
+        this.displayValue = this.memoryValue;
+        this.display.textContent = this.displayValue.toString();
+    }
+
+    memoryAdd() {
+        this.wasSpecialFunctionClicked = true;
+        this.memoryValue = this.memoryValue + Number(this.displayValue);
+    }
+
+    memoryMinus() {
+        this.wasSpecialFunctionClicked = true;
+        this.memoryValue = this.memoryValue - Number(this.displayValue);
+    }
+
+    memorySet () {
+        this.wasSpecialFunctionClicked = true;
+        this.memoryValue = Number(this.displayValue);
+    }
+
+    clear() {
+        this.displayValue = "0";
+        this.display.textContent = this.displayValue;
     }
 }
 
