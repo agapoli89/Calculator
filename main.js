@@ -60,6 +60,7 @@ class Calculator {
         this.bindFunctionToButton(MEMORY_MINUS_ID, () => this.memoryMinus());
         this.bindFunctionToButton(MEMORY_SET_ID, () => this.memorySet());
         this.bindFunctionToButton(CLEAR_ID, () => this.clear());
+        this.bindFunctionToButton(CANCEL_ID, () => this.cancel());
     }
 
     bindFunctionToButton(id, callback) {
@@ -96,8 +97,8 @@ class Calculator {
 
     memoryRead() {
         this.wasSpecialFunctionClicked = true;
-        this.displayValue = this.memoryValue;
-        this.display.textContent = this.displayValue.toString();
+        this.changeDisplayValue(this.memoryValue);
+        
     }
 
     memoryAdd() {
@@ -116,8 +117,22 @@ class Calculator {
     }
 
     clear() {
-        this.displayValue = "0";
-        this.display.textContent = this.displayValue;
+        this.previousValue = 0;
+        this.selectedFunction = null;
+        this.changeDisplayValue(null);
+    }
+
+    cancel() {
+        this.changeDisplayValue(null);
+    }
+
+    addition() {
+
+    }
+    
+    changeDisplayValue(value) {
+        this.displayValue = value;
+        this.display.textContent = value === null ? "0" : value.toString();
     }
 }
 
