@@ -67,6 +67,11 @@ class Calculator {
         this.bindFunctionToButton(DIVIDE_ID, () => this.division());
         this.bindFunctionToButton(EQUAL_ID, () => this.equal());
         this.bindFunctionToButton(BACK_ID, () => this.back());
+        this.bindFunctionToButton(INVERT_ID, () => this.inversion());
+        this.bindFunctionToButton(COMMA_ID, () => this.addComma());
+        this.bindFunctionToButton(PERCENT_ID, () => this.percent());
+        this.bindFunctionToButton(SQUARE_ID, () => this.square());
+        this.bindFunctionToButton(FRACTION_ID, () => this.oneXth());
     }
 
     bindFunctionToButton(id, callback) {
@@ -213,6 +218,30 @@ class Calculator {
         this.setValuesAfterSettingNewValue(newValue);
     }
 
+    percent() {
+        const newValue = this.previousValue * this.displayValue / 100;
+
+        this.callSpecialFunction(newValue);
+    }
+
+    square() {
+        const newValue = Math.sqrt(this.displayValue);
+
+        this.callSpecialFunction(newValue);
+    }
+
+    oneXth() {
+        const newValue = 1/this.displayValue;
+
+        this.callSpecialFunction(newValue);
+    }
+
+    callSpecialFunction(value) {
+        this.wasSpecialFunctionClicked = true;
+        this.wasEqualClicked = false;
+        this.changeDisplayValue(value);
+    }
+
     equal() {
         this.isFunctionDone = false;
         if (!this.wasEqualClicked) {
@@ -223,8 +252,18 @@ class Calculator {
         this.wasEqualClicked = true;
     }
 
+    inversion() {
+        this.changeDisplayValue(this.displayValue >= 0 ? -Math.abs(this.displayValue) : Math.abs(this.displayValue));
+    }
+
     back() {
         this.changeDisplayValue(this.displayValue ? this.displayValue.slice(0,-1) : null);
+    }
+
+    addComma() {
+        if (!this.display.textContent.includes('.')) {
+            this.changeDisplayValue(`${this.displayValue ? this.displayValue : 0}.`);
+        }
     }
 
     callPreviousFunctionAndAssignNew(currentFunction, hasRepeatedValue) {
