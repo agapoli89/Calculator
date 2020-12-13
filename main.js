@@ -65,6 +65,8 @@ class Calculator {
         this.bindFunctionToButton(SUBSTRACTION_ID, () => this.substraction());
         this.bindFunctionToButton(MULTIPLY_ID, () => this.multiplication());
         this.bindFunctionToButton(DIVIDE_ID, () => this.division());
+        this.bindFunctionToButton(EQUAL_ID, () => this.equal());
+        this.bindFunctionToButton(BACK_ID, () => this.back());
     }
 
     bindFunctionToButton(id, callback) {
@@ -211,6 +213,20 @@ class Calculator {
         this.setValuesAfterSettingNewValue(newValue);
     }
 
+    equal() {
+        this.isFunctionDone = false;
+        if (!this.wasEqualClicked) {
+            this.selectedFunction(false);
+        } else {
+            this.selectedFunction(true)
+        }
+        this.wasEqualClicked = true;
+    }
+
+    back() {
+        this.changeDisplayValue(this.displayValue ? this.displayValue.slice(0,-1) : null);
+    }
+
     callPreviousFunctionAndAssignNew(currentFunction, hasRepeatedValue) {
         if (this.selectedFunction !== currentFunction && this.selectedFunction) {
             this.selectedFunction(hasRepeatedValue)
@@ -249,8 +265,9 @@ class Calculator {
     }
     
     changeDisplayValue(value) {
+        const isNoValue = value === null || value === "";
         this.displayValue = value;
-        this.display.textContent = value === null ? "0" : value.toString();
+        this.display.textContent = isNoValue ? "0" : value.toString();
     }
 }
 
