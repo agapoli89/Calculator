@@ -61,6 +61,7 @@ class Calculator {
         this.bindFunctionToButton(MEMORY_SET_ID, () => this.memorySet());
         this.bindFunctionToButton(CLEAR_ID, () => this.clear());
         this.bindFunctionToButton(CANCEL_ID, () => this.cancel());
+        this.bindFunctionToButton(ADDITION_ID, () => this.addition());
     }
 
     bindFunctionToButton(id, callback) {
@@ -117,7 +118,7 @@ class Calculator {
     }
 
     clear() {
-        this.previousValue = 0;
+        this.previousValue = null;
         this.selectedFunction = null;
         this.changeDisplayValue(null);
     }
@@ -126,8 +127,30 @@ class Calculator {
         this.changeDisplayValue(null);
     }
 
-    addition() {
+    addition(hasRepeatedValue) {
+        this.selectedFunction = this.addition;
+        if(this.isFunctionDone) {
+            this.repeatedValue = Number(this.previousValue);
+            this.displayValue = '0';
+            this.wasSpecialFunctionClicked = false;
 
+            return;
+        }
+        const displayValue = Number(this.display.textContent);
+        const previousValue = hasRepeatedValue ? this.repeatedValue : Number(this.previousValue);
+        const newValue = displayValue + previousValue;
+
+        this.isFunctionDone = true;
+        this.repeatedValue = hasRepeatedValue 
+        ? this.repeatedValue 
+        : this.wasEqualClicked 
+            ? newValue
+            : Number(this.display.textContent);
+        
+            this.wasEqualClicked = false;
+            this.previousValue = newValue;
+            this.displayValue = null;
+            this.display.textContent = newValue;
     }
     
     changeDisplayValue(value) {
