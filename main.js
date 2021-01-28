@@ -128,8 +128,6 @@ class Calculator {
     }
 
     clear() {
-        console.log('clear');
-        
         this.previousValue = null;
         this.selectedFunction = null;
         this.changeDisplayValue(null);
@@ -250,10 +248,16 @@ class Calculator {
 
     equal() {
         this.isFunctionDone = false;
+        
+        if (this.previousValue === null & this.selectedFunction === null) {
+            throw("Any function was selected");
+        }
+        
         if (!this.wasEqualClicked) {
+
             this.selectedFunction(false);
         } else {
-            this.selectedFunction(true)
+            this.selectedFunction(true);
         }
         this.wasEqualClicked = true;
     }
