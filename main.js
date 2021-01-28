@@ -4,6 +4,7 @@ const CANCEL_ID = "js-cancel";
 const CLEAR_ID = "js-clear";
 const COMMA_ID = "js-comma";
 const DISPLAY_ID = "js-display";
+const DISPLAY_CALC_ID = "js-display-calc";
 const DIVIDE_ID = "js-divide";
 const EQUAL_ID = "js-equal";
 const FRACTION_ID = "js-fraction";

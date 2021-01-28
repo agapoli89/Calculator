@@ -37,17 +37,28 @@ h1 {
 }
 
 .display-area {
-    height: 10vh;
     width: 100%;
     background-color: gray;
     margin-bottom: 2vh;
     border-radius: 5px;
     display: flex;
-    flex-direction: row-reverse;
+    flex-wrap: wrap;
     align-items: center;
-    padding: 20px;
     color: lightgray;
     font-size: 30px;
+}
+
+.display-area__calculations {
+    width: 100%;
+    font-size: 15px;
+    padding-left: 10px;
+}
+
+.display-area__display-value {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
 }
 
 .buttons-area {
