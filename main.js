@@ -91,8 +91,8 @@ class Calculator {
         : this.displayValue + event.target.textContent;
 
         if (this.wasEqualClicked) {
-            this.previousValue = 0;
-            this.repeatedValue = 0;
+            this.previousValue = null;
+            this.repeatedValue = null;
             this.wasEqualClicked = false;
         }
 
@@ -128,6 +128,8 @@ class Calculator {
     }
 
     clear() {
+        console.log('clear');
+        
         this.previousValue = null;
         this.selectedFunction = null;
         this.changeDisplayValue(null);
@@ -167,6 +169,10 @@ class Calculator {
         const displayValue = this.getDisplayValue();
         const previousValue = this.getPreviousValue(hasRepeatedValue);
         let newValue;
+        console.log(displayValue);
+        console.log(previousValue);
+        
+        
 
         if(this.previousValue !== null) {
             newValue = hasRepeatedValue
