@@ -31,6 +31,9 @@ class Calculator {
         this.repeatedValue = 0;
         this.wasEqualClicked = false;
         this.wasSpecialFunctionClicked = false;
+        this.wasEqualToCalcClicked = false;
+        this.lastValueToCalc = "";
+        this.selectedFunctionToCalc = false;
 
         this.bindToDisplay();
         this.bindToNumbers();
@@ -58,10 +61,6 @@ class Calculator {
         }
 
         numbers.forEach(number => number.addEventListener("click", event => this.concatenateNumber(event)));
-    }
-
-    bindToDisplayCalc(e) {
-        this.displayCalc.textContent += e.textContent;
     }
 
     bindToButtons() {
@@ -96,10 +95,21 @@ class Calculator {
         element.addEventListener('click', () => {
             callback();
 
-            if (element.textContent === "+" || element.textContent === "-" || element.textContent === "*" || element.textContent === "/" || element.textContent === "," || element.textContent === "=") {
+            if (element.textContent === "+" || element.textContent === "-" || element.textContent === "*" || element.textContent === "/" || element.textContent === "," || element.textContent === "=" || element.textContent === "&#8730" || element.textContent === "%" || element.textContent === "1/x") {
                 this.bindToDisplayCalc(element);
             }
         });
+    }
+
+    bindToDisplayCalc(e) {
+        if (this.wasEqualToCalcClicked & !this.wasEqualClicked) {
+            this.displayCalc.textContent = this.previousValue + e.textContent;
+        } else if (this.selectedFunctionToCalc) {
+            this.displayCalc.textContent = "";
+            this.selectedFunctionToCalc = false;
+        } else {
+            this.displayCalc.textContent += this.lastValueToCalc + e.textContent;
+        }
     }
 
     concatenateNumber(event) {
@@ -116,8 +126,7 @@ class Calculator {
         this.wasSpecialFunctionClicked = false;
         this.isFunctionDone = false;
         this.display.textContent = this.displayValue;
-
-        this.displayCalc.textContent += event.target.textContent;
+        this.lastValueToCalc = this.displayValue;     
     }
 
     memoryClear() {
@@ -277,12 +286,15 @@ class Calculator {
             this.selectedFunction(false);
         } else {
             this.selectedFunction(true);
+            this.selectedFunctionToCalc = true;
         }
         this.wasEqualClicked = true;
+        this.wasEqualToCalcClicked = true;
     }
 
     inversion() {
         this.changeDisplayValue(this.displayValue >= 0 ? -Math.abs(this.displayValue) : Math.abs(this.displayValue));
+        this.lastValueToCalc = this.displayValue;
     }
 
     back() {
