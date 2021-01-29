@@ -38,12 +38,17 @@ class Calculator {
     }
     bindToDisplay() {
         const display = document.getElementById(DISPLAY_ID);
+        const displayCalc = document.getElementById(DISPLAY_CALC_ID);
         
         if (!display) {
             throw("The element is not finded");
         }
         display.textContent = this.displayValue;
-        this.display = display;  
+        /* displayCalc.textContent = this.displayValue; */
+        this.display = display;
+        this.displayCalc = displayCalc;  
+
+       
     }
     bindToNumbers() {
         const numbers = document.querySelectorAll(NUMBER_CLASS_SELECTOR);
@@ -54,6 +59,11 @@ class Calculator {
 
         numbers.forEach(number => number.addEventListener("click", event => this.concatenateNumber(event)));
     }
+
+    bindToDisplayCalc(e) {
+        this.displayCalc.textContent += e.textContent;
+    }
+
     bindToButtons() {
         this.bindFunctionToButton(MEMORY_CLEAR_ID, () => this.memoryClear());
         this.bindFunctionToButton(MEMORY_READ_ID, () => this.memoryRead());
@@ -83,7 +93,13 @@ class Calculator {
             return;
         } 
 
-        element.addEventListener('click', () => callback());
+        element.addEventListener('click', () => {
+            callback();
+
+            if (element.textContent === "+" || element.textContent === "-" || element.textContent === "*" || element.textContent === "/" || element.textContent === "," || element.textContent === "=") {
+                this.bindToDisplayCalc(element);
+            }
+        });
     }
 
     concatenateNumber(event) {
@@ -100,6 +116,8 @@ class Calculator {
         this.wasSpecialFunctionClicked = false;
         this.isFunctionDone = false;
         this.display.textContent = this.displayValue;
+
+        this.displayCalc.textContent += event.target.textContent;
     }
 
     memoryClear() {
