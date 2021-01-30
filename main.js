@@ -159,10 +159,12 @@ class Calculator {
         this.previousValue = null;
         this.selectedFunction = null;
         this.changeDisplayValue(null);
+        this.displayCalc.textContent = "";
     }
 
     cancel() {
         this.changeDisplayValue(null);
+        this.displayCalc.textContent = "";
     }
 
     addition(hasRepeatedValue) {
