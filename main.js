@@ -34,6 +34,7 @@ class Calculator {
         this.wasEqualToCalcClicked = false;
         this.lastValueToCalc = "";
         this.selectedFunctionToCalc = false;
+        this.selectedFunctionToNotConcatCalc = false;
 
         this.bindToDisplay();
         this.bindToNumbers();
@@ -94,20 +95,30 @@ class Calculator {
 
         element.addEventListener('click', () => {
             callback();
-
-            if (element.textContent === "+" || element.textContent === "-" || element.textContent === "*" || element.textContent === "/" || element.textContent === "," || element.textContent === "=" || element.textContent === "&#8730" || element.textContent === "%" || element.textContent === "1/x") {
+            console.log(element.textContent);
+            
+            if (element.textContent === "+" || element.textContent === "-" || element.textContent === "*" || element.textContent === "/" || element.textContent === "=" || element.textContent === "√" || element.textContent === "%" || element.textContent === "1/x") {
                 this.bindToDisplayCalc(element);
             }
         });
     }
 
     bindToDisplayCalc(e) {
-        if (this.wasEqualToCalcClicked & !this.wasEqualClicked) {
+        console.log(e.textContent);
+        
+        
+        if ((this.wasEqualToCalcClicked & !this.wasEqualClicked) || this.selectedFunctionToNotConcatCalc) {
+            console.log('if one');
+            
             this.displayCalc.textContent = this.previousValue + e.textContent;
         } else if (this.selectedFunctionToCalc) {
+            console.log('if two');
+            
             this.displayCalc.textContent = "";
             this.selectedFunctionToCalc = false;
         } else {
+            console.log('if three');
+            
             this.displayCalc.textContent += this.lastValueToCalc + e.textContent;
         }
     }
@@ -126,7 +137,8 @@ class Calculator {
         this.wasSpecialFunctionClicked = false;
         this.isFunctionDone = false;
         this.display.textContent = this.displayValue;
-        this.lastValueToCalc = this.displayValue;     
+        this.lastValueToCalc = this.displayValue;   
+        this.selectedFunctionToNotConcatCalc = false;  
     }
 
     memoryClear() {
@@ -183,6 +195,7 @@ class Calculator {
         this.getRepeatedValue(hasRepeatedValue, newValue);
 
         this.setValuesAfterSettingNewValue(newValue);
+        this.selectedFunctionToNotConcatCalc = true;
     }
 
     substraction(hasRepeatedValue) {
@@ -197,10 +210,6 @@ class Calculator {
         const displayValue = this.getDisplayValue();
         const previousValue = this.getPreviousValue(hasRepeatedValue);
         let newValue;
-        console.log(displayValue);
-        console.log(previousValue);
-        
-        
 
         if(this.previousValue !== null) {
             newValue = hasRepeatedValue
@@ -211,6 +220,7 @@ class Calculator {
         }
 
         this.setValuesAfterSettingNewValue(newValue);
+        this.selectedFunctionToNotConcatCalc = true;
     }
 
     multiplication(hasRepeatedValue) {
@@ -229,6 +239,7 @@ class Calculator {
         this.getRepeatedValue(hasRepeatedValue, newValue);
 
         this.setValuesAfterSettingNewValue(newValue);
+        this.selectedFunctionToNotConcatCalc = true;
     }
 
     division(hasRepeatedValue) {
@@ -250,6 +261,7 @@ class Calculator {
 
         this.getRepeatedValue(hasRepeatedValue, newValue);
         this.setValuesAfterSettingNewValue(newValue);
+        this.selectedFunctionToNotConcatCalc = true;
     }
 
     percent() {
@@ -292,6 +304,7 @@ class Calculator {
         }
         this.wasEqualClicked = true;
         this.wasEqualToCalcClicked = true;
+        this.selectedFunctionToNotConcatCalc = false;
     }
 
     inversion() {
