@@ -37,6 +37,7 @@ class Calculator {
         this.selectedFunctionToNotConcatCalc = false;
         this.valueToSquare = null;
         this.percentIsClicked = false;
+        this.valueToReciproc = null;
 
         this.bindToDisplay();
         this.bindToNumbers();
@@ -105,8 +106,8 @@ class Calculator {
     }
 
     bindToDisplayCalc(e) {
+
         if ((this.wasEqualToCalcClicked & !this.wasEqualClicked) || this.selectedFunctionToNotConcatCalc) {
-            console.log('if one');
             if (e.textContent === "√") {
                 this.displayCalc.textContent = this.valueToSquare ? this.valueToSquare + e.textContent : this.previousValue + e.textContent;
                 this.valueToSquare = this.displayValue;
@@ -114,18 +115,18 @@ class Calculator {
                 this.displayCalc.textContent = this.previousValue + e.textContent;
             }
         } else if (this.selectedFunctionToCalc) {
-            console.log('if two');
-            
             this.displayCalc.textContent = "";
             this.selectedFunctionToCalc = false;
         } else {
-            console.log('if three');
             if (e.textContent === "√") {
                 this.displayCalc.textContent = this.valueToSquare ? this.valueToSquare + e.textContent : this.lastValueToCalc + e.textContent;
                 this.valueToSquare = this.displayValue;
             } else if (e.textContent === "%") {
                 this.displayCalc.textContent += this.lastValueToCalc + e.textContent;
                 this.percentIsClicked = true;  
+            } else if (e.textContent === "1/x") {
+                this.displayCalc.textContent = this.valueToReciproc !== null ? `reciproc(${this.valueToReciproc})` : `reciproc(${this.lastValueToCalc})`;
+                this.valueToReciproc = this.displayValue;              
             } else {
                 if (this.percentIsClicked === true) {
                     this.displayCalc.textContent = "";
