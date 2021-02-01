@@ -36,6 +36,7 @@ class Calculator {
         this.selectedFunctionToCalc = false;
         this.selectedFunctionToNotConcatCalc = false;
         this.valueToSquare = null;
+        this.percentIsClicked = false;
 
         this.bindToDisplay();
         this.bindToNumbers();
@@ -96,7 +97,6 @@ class Calculator {
 
         element.addEventListener('click', () => {
             callback();
-            console.log(element.textContent);
             
             if (element.textContent === "+" || element.textContent === "-" || element.textContent === "*" || element.textContent === "/" || element.textContent === "=" || element.textContent === "√" || element.textContent === "%" || element.textContent === "1/x") {
                 this.bindToDisplayCalc(element);
@@ -105,12 +105,6 @@ class Calculator {
     }
 
     bindToDisplayCalc(e) {
-        console.log(e.textContent);
-        console.log(this.displayValue);
-        console.log(this.lastValueToCalc);
-        console.log(this.previousValue);
-        
-        
         if ((this.wasEqualToCalcClicked & !this.wasEqualClicked) || this.selectedFunctionToNotConcatCalc) {
             console.log('if one');
             if (e.textContent === "√") {
@@ -129,8 +123,15 @@ class Calculator {
             if (e.textContent === "√") {
                 this.displayCalc.textContent = this.valueToSquare ? this.valueToSquare + e.textContent : this.lastValueToCalc + e.textContent;
                 this.valueToSquare = this.displayValue;
+            } else if (e.textContent === "%") {
+                this.displayCalc.textContent += this.lastValueToCalc + e.textContent;
+                this.percentIsClicked = true;  
             } else {
-                 this.displayCalc.textContent += this.lastValueToCalc + e.textContent;
+                if (this.percentIsClicked === true) {
+                    this.displayCalc.textContent = "";
+                } else {
+                    this.displayCalc.textContent += this.lastValueToCalc + e.textContent;
+                }
             }
         }
     }
@@ -283,8 +284,6 @@ class Calculator {
     }
 
     square() {
-        console.log(this.displayValue);
-        
         const newValue = this.displayValue ? Math.sqrt(this.displayValue) : Math.sqrt(this.previousValue);
 
         this.callSpecialFunction(newValue);
@@ -377,8 +376,6 @@ class Calculator {
         const isNoValue = value === null || value === "";
         this.displayValue = value;
         this.display.textContent = isNoValue ? "0" : value.toString();
-        console.log(this.displayValue);
-        
     }
 }
 
