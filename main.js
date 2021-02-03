@@ -1,25 +1,25 @@
-const ADDITION_ID = "js-addition";
-const BACK_ID = "js-arrow";
-const CANCEL_ID = "js-cancel";
-const CLEAR_ID = "js-clear";
-const COMMA_ID = "js-comma";
-const DISPLAY_ID = "js-display";
-const DISPLAY_CALC_ID = "js-display-calc";
-const DIVIDE_ID = "js-divide";
-const EQUAL_ID = "js-equal";
-const FRACTION_ID = "js-fraction";
-const INVERT_ID = "js-invert";
-const MEMORY_ADD_ID = "js-M+";
-const MEMORY_CLEAR_ID = "js-MC";
-const MEMORY_MINUS_ID = "js-M-";
-const MEMORY_READ_ID = "js-MR";
-const MEMORY_SET_ID = "js-MS";
-const MULTIPLY_ID = "js-multiply";
-const NUMBER_CLASS_SELECTOR = ".buttons-area__btn--number";
-const NUMBER_OF_NUMBERS_ON_KEYBOARD = 10;
-const PERCENT_ID = "js-percent";
-const SUBSTRACTION_ID = "js-substraction";
-const SQUARE_ID = "js-sqrt";
+const ADDITION_ID = "js-addition",
+BACK_ID = "js-arrow",
+CANCEL_ID = "js-cancel",
+CLEAR_ID = "js-clear",
+COMMA_ID = "js-comma",
+DISPLAY_ID = "js-display",
+DISPLAY_CALC_ID = "js-display-calc",
+DIVIDE_ID = "js-divide",
+EQUAL_ID = "js-equal",
+FRACTION_ID = "js-fraction",
+INVERT_ID = "js-invert",
+MEMORY_ADD_ID = "js-M+",
+MEMORY_CLEAR_ID = "js-MC",
+MEMORY_MINUS_ID = "js-M-",
+MEMORY_READ_ID = "js-MR",
+MEMORY_SET_ID = "js-MS",
+MULTIPLY_ID = "js-multiply",
+NUMBER_CLASS = "buttons-area__btn--number",
+NUMBER_OF_NUMBERS_ON_KEYBOARD = 10,
+PERCENT_ID = "js-percent",
+SUBSTRACTION_ID = "js-substraction",
+SQUARE_ID = "js-sqrt";
 
 class Calculator {
     constructor() {
@@ -53,12 +53,10 @@ class Calculator {
         display.textContent = this.displayValue;
         /* displayCalc.textContent = this.displayValue; */
         this.display = display;
-        this.displayCalc = displayCalc;  
-
-       
+        this.displayCalc = displayCalc;    
     }
     bindToNumbers() {
-        const numbers = document.querySelectorAll(NUMBER_CLASS_SELECTOR);
+        const numbers = Array.from(document.getElementsByClassName(NUMBER_CLASS));
         
         if(numbers.length !== NUMBER_OF_NUMBERS_ON_KEYBOARD) {
             console.warn("There are not enough numbers in keyboards");
