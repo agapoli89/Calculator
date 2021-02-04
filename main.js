@@ -57,11 +57,6 @@ class Calculator {
     }
     bindToNumbers() {
         const numbers = Array.from(document.getElementsByClassName(NUMBER_CLASS));
-        
-        if(numbers.length !== NUMBER_OF_NUMBERS_ON_KEYBOARD) {
-            console.warn("There are not enough numbers in keyboards");
-        }
-
         numbers.forEach(number => number.addEventListener("click", event => this.concatenateNumber(event)));
     }
 
